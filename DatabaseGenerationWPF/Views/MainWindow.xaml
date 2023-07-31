@@ -1,0 +1,198 @@
+﻿<Window
+    x:Class="DatabaseGenerationWPF.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    WindowState="Maximized">
+    <Grid>
+
+        <hc:Watermark
+            FontSize="50"
+            FontWeight="Bold"
+            Mark=""
+            MarkMargin="50,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" MinHeight="500" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <!--  弹窗侧边栏按钮  -->
+                <ToggleButton
+                    Grid.Row="0"
+                    Width="50"
+                    Height="50"
+                    Margin="18,16,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    IsChecked="{Binding IsOpen, ElementName=DrawerLeft}">
+                    <TextBlock
+                        FontFamily="/#iconfont"
+                        FontSize="30"
+                        Text="&#xe60b;" />
+                </ToggleButton>
+
+
+                <GroupBox
+                    Grid.Row="1"
+                    Margin="16,0"
+                    HorizontalContentAlignment="Left"
+                    Style="{StaticResource GroupBoxOriginal}">
+                    <GroupBox.Header>
+                        <TextBlock
+                            Margin="0,10"
+                            FontSize="24"
+                            Text="SQL Code Template" />
+                    </GroupBox.Header>
+                    <TextBox
+                        x:Name="SqlCodeBox"
+                        VerticalContentAlignment="Top"
+                        AcceptsReturn="True"
+                        FontSize="16"
+                        FontWeight="Light"
+                        HorizontalScrollBarVisibility="Auto"
+                        Text="{Binding File.Sql}"
+                        TextChanged="SqlCodeBox_TextChanged"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
+
+                </GroupBox>
+
+                <Label
+                    Grid.Row="2"
+                    Width="auto"
+                    Height="70"
+                    Margin="17"
+                    HorizontalAlignment="Right"
+                    FontSize="16">
+                    <Label.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="line " />
+                            <TextBlock Text="{Binding Record.Row}" />
+                            <TextBlock Text=",word " />
+                            <TextBlock Text="{Binding Record.Num}" />
+                        </StackPanel>
+                    </Label.Content>
+
+                </Label>
+
+                <!--  侧边栏  -->
+                <hc:Drawer
+                    x:Name="DrawerLeft"
+                    Closed="DrawerLeft_Closed"
+                    Dock="Left"
+                    ShowMode="Push">
+                    <Border
+                        Width="300"
+                        Background="{DynamicResource RegionBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        BorderThickness="0,1,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Margin="20"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource TextBlockTitle}"
+                                Text="设置" />
+
+                            <Button
+                                Grid.Row="0"
+                                HorizontalAlignment="Right"
+                                hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
+                                Command="hc:ControlCommands.Close"
+                                Foreground="{DynamicResource PrimaryTextBrush}"
+                                Style="{StaticResource ButtonIcon}" />
+
+                            <Grid Grid.Row="1">
+
+                                <StackPanel>
+
+                                    <hc:TextBox
+                                        Margin="15,2"
+                                        hc:InfoElement.Placeholder="请输入表名"
+                                        hc:InfoElement.Title="表名"
+                                        Text="{Binding File.TableName}" />
+
+                                    <hc:TextBox
+                                        Margin="15,2"
+                                        hc:InfoElement.Placeholder="请输入表名描述"
+                                        hc:InfoElement.Title="表名描述"
+                                        Text="{Binding File.TableDesc}" />
+
+
+                                    <hc:TextBox
+                                        Margin="15,2,15,0"
+                                        hc:InfoElement.Placeholder="上传成功会显示文件名称"
+                                        hc:InfoElement.Title="文件名称"
+                                        IsReadOnly="True"
+                                        Text="{Binding File.FileName, Mode=TwoWay}" />
+
+                                    <StackPanel
+                                        Margin="15,15,15,15"
+                                        HorizontalAlignment="left"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+
+                                        <CheckBox Content="添加字段" IsChecked="{Binding File.IsField}" />
+                                        <Button
+                                            Width="80"
+                                            Margin="20,0,0,0"
+                                            Click="UploadButton_Click"
+                                            Content="上传文件"
+                                            Style="{StaticResource ButtonPrimary}" />
+
+                                        <Button
+                                            Width="80"
+                                            Margin="20,0,0,0"
+                                            Click="TemplateDownloadClick"
+                                            Content="下载模板"
+                                            Style="{StaticResource ButtonPrimary}" />
+
+                                    </StackPanel>
+
+
+
+                                    <StackPanel
+                                        Margin="15,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+
+                                        <Button
+                                            Margin="0,0,10,0"
+                                            Command="{Binding ClearCommand}"
+                                            Content="清空" />
+
+                                        <Button
+                                            Grid.Row="1"
+                                            Width="100"
+                                            Click="Button_Click"
+                                            Command="{Binding generateCommand}"
+                                            Content="生成"
+                                            Style="{StaticResource ButtonSuccess}" />
+
+                                        <Button
+                                            Grid.Row="1"
+                                            Width="100"
+                                            Margin="10,0,0,0"
+                                            Click="Button_Click"
+                                            Content="取消"
+                                            Style="{StaticResource ButtonDanger}" />
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </hc:Drawer>
+            </Grid>
+        </hc:Watermark>
+    </Grid>
+</Window>
