@@ -6,13 +6,14 @@
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    Icon="/Views/favicon.ico"
     WindowState="Maximized">
     <Grid>
 
         <hc:Watermark
             FontSize="50"
             FontWeight="Bold"
-            Mark=""
+            Mark="xiuyuandashen"
             MarkMargin="50,0">
             <Grid>
                 <Grid.RowDefinitions>

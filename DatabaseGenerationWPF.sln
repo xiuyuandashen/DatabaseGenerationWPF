@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseGenerationWPF", "DatabaseGenerationWPF\DatabaseGenerationWPF.csproj", "{E53E721F-3892-4466-BF8D-E28C8C1E2E3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseGenerationWPF", "DatabaseGenerationWPF\DatabaseGenerationWPF.csproj", "{E53E721F-3892-4466-BF8D-E28C8C1E2E3E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{82D3FA7B-8F07-4826-AD41-15D7D9D693C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{E53E721F-3892-4466-BF8D-E28C8C1E2E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E53E721F-3892-4466-BF8D-E28C8C1E2E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E53E721F-3892-4466-BF8D-E28C8C1E2E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D3FA7B-8F07-4826-AD41-15D7D9D693C6}.Debug|Any CPU.ActiveCfg = Debug
+		{82D3FA7B-8F07-4826-AD41-15D7D9D693C6}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,9 +5,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="assist\favicon.ico" />
     <None Remove="assist\模板.xlsx" />
     <None Remove="iconfont.ttf" />
     <None Remove="Images\MainBG.png" />
+    <None Remove="Views\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HandyControl" Version="3.4.0" />
@@ -17,12 +19,16 @@
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="assist\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="assist\模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Resource Include="iconfont.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\favicon.ico" />
     <EmbeddedResource Include="Images\MainBG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
