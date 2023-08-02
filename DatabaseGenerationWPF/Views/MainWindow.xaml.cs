@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Windows;
 using DatabaseGenerationWPF.ViewModels;
+using HandyControl.Tools;
 
 namespace DatabaseGenerationWPF.Views
 {

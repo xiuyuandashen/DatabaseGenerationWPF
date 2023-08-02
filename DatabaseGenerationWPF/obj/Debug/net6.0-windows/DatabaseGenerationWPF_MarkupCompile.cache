@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\App.xaml
-21819176243
+3-1715481027
 
-61339899918
+71701135781
 2161435639902
-Views\Login.xaml;Views\MainWindow.xaml;
+Views\Login.xaml;Views\MainWindow.xaml;Views\ucDigitalClock.xaml;
 
 False
 

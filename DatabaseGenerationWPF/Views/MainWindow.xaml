@@ -3,11 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:DatabaseGenerationWPF.Views"
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Icon="/Views/favicon.ico"
     WindowState="Maximized">
+
     <Grid>
 
         <hc:Watermark
@@ -22,20 +24,30 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
+
+                <Canvas Grid.Row="0" Height="80">
+                    <ToggleButton
+                        Width="50"
+                        Height="50"
+                        Margin="18,16,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        IsChecked="{Binding IsOpen, ElementName=DrawerLeft}">
+                        <TextBlock
+                            FontFamily="/#iconfont"
+                            FontSize="30"
+                            Text="&#xe60b;" />
+                    </ToggleButton>
+
+                    <!--  时间控件  -->
+                    <local:ucDigitalClock
+                        Canvas.Right="50"
+                        Margin="0,16,0,0"
+                        VerticalAlignment="Center" />
+                </Canvas>
+
                 <!--  弹窗侧边栏按钮  -->
-                <ToggleButton
-                    Grid.Row="0"
-                    Width="50"
-                    Height="50"
-                    Margin="18,16,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    IsChecked="{Binding IsOpen, ElementName=DrawerLeft}">
-                    <TextBlock
-                        FontFamily="/#iconfont"
-                        FontSize="30"
-                        Text="&#xe60b;" />
-                </ToggleButton>
+
 
 
                 <GroupBox

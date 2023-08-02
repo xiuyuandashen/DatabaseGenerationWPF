@@ -50,3 +50,6 @@ F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\bin\Debug\net6.0-windows\Sys
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\bin\Debug\net6.0-windows\System.Security.Cryptography.Xml.dll
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\bin\Debug\net6.0-windows\assist\favicon.ico
+F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\Views\ucDigitalClock.g.cs
+F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\Views\ucDigitalClock.baml
