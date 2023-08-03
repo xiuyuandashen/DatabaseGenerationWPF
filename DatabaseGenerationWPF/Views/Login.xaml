@@ -11,9 +11,9 @@
     WindowStyle="None">
     <Grid>
 
-        <Grid.Background>
-            <ImageBrush ImageSource="../Images/MainBG.png" Stretch="UniformToFill" />
-        </Grid.Background>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="/Images/MainBG.png" Stretch="UniformToFill" />
+        </Grid.Background>-->
 
         <StackPanel VerticalAlignment="Center">
 
@@ -87,11 +87,9 @@
                         Click="Button_Click"
                         Content="登录"
                         FontSize="30"
-                        FontWeight="UltraLight" >
+                        FontWeight="UltraLight">
 
-                        <Button.InputBindings>
-                            
-                        </Button.InputBindings>
+                        <Button.InputBindings />
                     </Button>
                 </Grid>
 
