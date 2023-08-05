@@ -53,3 +53,6 @@ F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\bin\Debug\net6.0-windows\ass
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\Views\ucDigitalClock.g.cs
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\Views\ucDigitalClock.baml
+F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\Views\JsonGenerateDialog.g.cs
+F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\obj\Debug\net6.0-windows\Views\JsonGenerateDialog.baml
+F:\code\DatabaseGenerationWPF\DatabaseGenerationWPF\bin\Debug\net6.0-windows\Newtonsoft.Json.dll

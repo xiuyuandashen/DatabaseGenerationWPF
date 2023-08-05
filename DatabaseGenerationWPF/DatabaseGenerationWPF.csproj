@@ -8,12 +8,15 @@
     <None Remove="assist\favicon.ico" />
     <None Remove="assist\模板.xlsx" />
     <None Remove="iconfont.ttf" />
+    <None Remove="Images\background.png" />
     <None Remove="Images\MainBG.png" />
+    <None Remove="Images\pexels-simon-berger-1323550.jpg" />
     <None Remove="Views\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HandyControl" Version="3.4.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NPOI" Version="2.6.1" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
@@ -27,6 +30,12 @@
     </EmbeddedResource>
     <Resource Include="iconfont.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\pexels-simon-berger-1323550.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Views\favicon.ico" />
     <EmbeddedResource Include="Images\MainBG.png">

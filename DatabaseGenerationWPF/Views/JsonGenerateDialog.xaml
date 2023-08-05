@@ -1,0 +1,187 @@
+﻿<UserControl
+    x:Class="DatabaseGenerationWPF.Views.JsonGenerateDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:DatabaseGenerationWPF.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    MinWidth="1000"
+    MinHeight="700"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <Border Background="White">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Images/pexels-simon-berger-1323550.jpg" Opacity="0.2" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+
+            <DockPanel Margin="10">
+                <TextBlock
+                    Margin="10,5,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="Agency FB"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="Json Code Template" />
+
+                <Button
+                    Grid.Row="0"
+                    Width="22"
+                    Height="22"
+                    Margin="0,10,10,0"
+                    Padding="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource ErrorGeometry}"
+                    Command="hc:ControlCommands.Close"
+                    Foreground="#1e1e1e"
+                    Style="{StaticResource ButtonIcon}" />
+            </DockPanel>
+
+
+            <Grid Grid.Row="1" Margin="10,0,10,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="100" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition MinWidth="500" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <TextBox
+                        Grid.Row="1"
+                        MaxWidth="500"
+                        Margin="10,5,10,10"
+                        VerticalContentAlignment="Top"
+                        AcceptsReturn="True"
+                        FontSize="16"
+                        FontWeight="Light"
+                        Foreground="#3e8ed5"
+                        HorizontalScrollBarVisibility="Auto"
+                        Opacity=".8"
+                        Text="{Binding JsonContent}"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
+
+                </Grid>
+
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="3"
+                    Height="200"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+
+                <Grid Grid.Column="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Grid.Row="0"
+                        Width="800"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <hc:TextBox
+                            Width="300"
+                            Height="20"
+                            Margin="15,0"
+                            hc:InfoElement.Necessary="True"
+                            hc:InfoElement.Placeholder="请输入表名"
+                            hc:InfoElement.Symbol="*"
+                            hc:InfoElement.Title="表名"
+                            hc:InfoElement.TitlePlacement="Left"
+                            Text="{Binding TableName}" />
+
+                        <hc:TextBox
+                            Width="300"
+                            Height="20"
+                            Margin="15,0"
+                            hc:InfoElement.Necessary="True"
+                            hc:InfoElement.Placeholder="请输入表名描述"
+                            hc:InfoElement.Symbol="*"
+                            hc:InfoElement.Title="表名描述"
+                            hc:InfoElement.TitlePlacement="Left"
+                            Text="{Binding TableDesc}" />
+                    </StackPanel>
+
+
+                    <DataGrid
+                        Grid.Row="1"
+                        MaxHeight="1000"
+                        Margin="5"
+                        AutoGenerateColumns="False"
+                        HeadersVisibility="All"
+                        ItemsSource="{Binding Fields}"
+                        RowHeaderWidth="60">
+
+                        <DataGrid.RowHeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                            </DataTemplate>
+                        </DataGrid.RowHeaderTemplate>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                MinWidth="100"
+                                Binding="{Binding FieldName}"
+                                Header="字段名称" />
+                            <DataGridTextColumn
+                                MinWidth="100"
+                                Binding="{Binding FieldType}"
+                                Header="类型" />
+                            <DataGridTextColumn
+                                MinWidth="100"
+                                Binding="{Binding FieldSize}"
+                                Header="大小" />
+                            <DataGridTextColumn
+                                MinWidth="70"
+                                Binding="{Binding FieldIsEmpty}"
+                                Header="可空" />
+                            <DataGridTextColumn
+                                MinWidth="70"
+                                Binding="{Binding FieldIsKey}"
+                                Header="主键" />
+                            <DataGridTextColumn
+                                MinWidth="300"
+                                Binding="{Binding FieldDesc}"
+                                Header="描述" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+            </Grid>
+
+            <StackPanel
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Command="{Binding JSON2FieldCommand}"
+                    Content="转换"
+                    Style="{StaticResource ButtonPrimary}" />
+                <Button
+                    Width="100"
+                    Margin="20,0"
+                    Command="{Binding Field2SqlCommand}"
+                    Content="生成"
+                    Style="{StaticResource ButtonSuccess}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</UserControl>

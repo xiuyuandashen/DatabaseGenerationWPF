@@ -22,7 +22,15 @@
             FontWeight="Bold"
             Mark=""
             MarkMargin="50,0">
+
             <Grid>
+
+                <Grid.Background>
+                    <ImageBrush
+                        ImageSource="/Images/pexels-simon-berger-1323550.jpg"
+                        Opacity="0.2"
+                        Stretch="UniformToFill" />
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="1*" MinHeight="500" />
@@ -31,6 +39,7 @@
 
 
                 <Canvas Grid.Row="0" Height="80">
+                    <!--  Excel模板方式生成SQL  -->
                     <ToggleButton
                         Width="50"
                         Height="50"
@@ -41,8 +50,22 @@
                         <TextBlock
                             FontFamily="/#iconfont"
                             FontSize="30"
-                            Text="&#xe60b;" />
+                            Text="&#xe7b7;" />
                     </ToggleButton>
+                    <!--  Json生成SQL  -->
+                    <Button
+                        Width="50"
+                        Height="50"
+                        Margin="80,16,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Command="{Binding JsonOpenDialogCommand}">
+                        <TextBlock
+                            FontFamily="/#iconfont"
+                            FontSize="30"
+                            Text="&#xea42;" />
+                    </Button>
+
 
                     <!--  时间控件  -->
                     <local:ucDigitalClock
@@ -51,10 +74,9 @@
                         VerticalAlignment="Center" />
                 </Canvas>
 
-                <!--  弹窗侧边栏按钮  -->
 
 
-
+                <!--  Code 区域  -->
                 <GroupBox
                     Grid.Row="1"
                     Margin="16,0"
@@ -74,6 +96,7 @@
                         FontSize="16"
                         FontWeight="Light"
                         HorizontalScrollBarVisibility="Auto"
+                        Opacity="0.7"
                         Text="{Binding File.Sql}"
                         TextChanged="SqlCodeBox_TextChanged"
                         TextWrapping="Wrap"
@@ -84,12 +107,13 @@
                 <TextBlock
                     Grid.Row="2"
                     Width="auto"
-                    Height="70"
+                    Height="30"
                     Margin="16"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     FontFamily="Agency FB"
                     FontSize="20"
-                    Foreground="Black">
+                    Foreground="#f5f5f5">
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Line " />

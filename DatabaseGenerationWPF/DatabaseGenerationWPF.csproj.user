@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\JsonGenerateDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -15,6 +18,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\JsonGenerateDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Login.xaml">
       <SubType>Designer</SubType>
     </Page>
