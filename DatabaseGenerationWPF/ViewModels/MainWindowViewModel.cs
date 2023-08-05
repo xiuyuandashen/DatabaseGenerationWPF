@@ -1,14 +1,19 @@
-﻿using ExcelToDB;
+﻿using DatabaseGenerationWPF.Event;
+using DatabaseGenerationWPF.Views;
+using ExcelToDB;
 using HandyControl.Controls;
 using MathNet.Numerics;
 using NPOI.HPSF;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using System;
 using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DatabaseGenerationWPF.ViewModels
 {
@@ -17,6 +22,8 @@ namespace DatabaseGenerationWPF.ViewModels
         private string _title = "数据库表生成器";
         private SqlFile sqlFile = new SqlFile();
         private Record record = new Record { Row = 0, Num = 0 };
+
+        private HandyControl.Controls.Dialog dialog;
 
         public SqlFile File
         {
@@ -46,10 +53,30 @@ namespace DatabaseGenerationWPF.ViewModels
 
         public DelegateCommand ClearCommand { get; set; }
 
-        public MainWindowViewModel()
+
+        public DelegateCommand JsonOpenDialogCommand { get; set; }
+        public IEventAggregator EventAggregator { get; }
+
+        public MainWindowViewModel(IEventAggregator eventAggregator)
         {
             generateCommand = new DelegateCommand(GenerateCode);
             ClearCommand = new DelegateCommand(ClearData);
+            JsonOpenDialogCommand = new DelegateCommand(JsonOpenDialog);
+            EventAggregator = eventAggregator;
+
+            // 订阅事件
+            EventAggregator.GetEvent<SqlEvent>().Subscribe((sql) =>
+            {
+                File.Sql = sql;
+                dialog?.Close();
+            });
+        }
+
+        private async void JsonOpenDialog()
+        {
+            dialog = HandyControl.Controls.Dialog.Show<JsonGenerateDialog>();
+            //await Task.Delay(5 * 1000);
+            //d.Close();
         }
 
         private void ClearData()

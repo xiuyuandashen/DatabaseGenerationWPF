@@ -1,4 +1,5 @@
-﻿using DatabaseGenerationWPF.Views;
+﻿using DatabaseGenerationWPF.ViewModels;
+using DatabaseGenerationWPF.Views;
 using Prism.Ioc;
 using System.Windows;
 
@@ -16,7 +17,7 @@ namespace DatabaseGenerationWPF
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            //containerRegistry.RegisterForNavigation<JsonGenerateDialog, JsonGenerateDialogViewModel>();
         }
 
     }
