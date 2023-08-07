@@ -8,7 +8,8 @@
     Title="{Binding Title}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Icon="/Views/favicon.ico"
-    SizeToContent="WidthAndHeight">
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterScreen">
     <!--
         WindowState="Maximized" 设置窗口全屏
         SizeToContent="WidthAndHeight" 设置自动跟随内容大小设置窗口大小
@@ -16,7 +17,7 @@
     <Grid Background="#f5f5f5">
 
         <hc:Watermark
-            MinWidth="1200"
+            MinWidth="1500"
             MinHeight="1000"
             FontSize="50"
             FontWeight="Bold"
