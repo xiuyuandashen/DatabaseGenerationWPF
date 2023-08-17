@@ -227,10 +227,18 @@
                             Foreground="Black">
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Line " />
+                                <!--<TextBlock Text="Line " />
                                 <TextBlock Text="{Binding Record.Row}" />
                                 <TextBlock Text=",Word " />
-                                <TextBlock Text="{Binding Record.Num}" />
+                                <TextBlock Text="{Binding Record.Num}" />-->
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Line {0},Word {1}">
+                                            <Binding Path="Record.Row" />
+                                            <Binding Path="Record.Num" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </StackPanel>
                         </TextBlock>
 
@@ -302,7 +310,7 @@
                                                     Margin="20,0,0,0"
                                                     Click="UploadButton_Click"
                                                     Content="上传文件"
-                                                    Style="{StaticResource ButtonPrimary}" />
+                                                    Style="{Binding Source={StaticResource ButtonPrimary}}" />
 
                                                 <Button
                                                     Width="80"

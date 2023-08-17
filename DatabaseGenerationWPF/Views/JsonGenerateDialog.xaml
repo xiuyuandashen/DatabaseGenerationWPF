@@ -48,9 +48,12 @@
 
             <Grid Grid.Row="1" Margin="10,0,10,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="100" />
+                    <ColumnDefinition
+                        Width="250"
+                        MinWidth="150"
+                        MaxWidth="400" />
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition MinWidth="500" />
+                    <ColumnDefinition MinWidth="600" />
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
