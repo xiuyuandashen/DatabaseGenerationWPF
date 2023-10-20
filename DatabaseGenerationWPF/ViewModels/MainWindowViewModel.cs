@@ -86,148 +86,161 @@ namespace DatabaseGenerationWPF.ViewModels
 
         private void GenerateCode()
         {
-            if (string.IsNullOrEmpty(File.TableName))
-            {
-                MessageBox.Show("请填写表名!","提示");
-                return;
-            }
 
-            if (string.IsNullOrEmpty(File.TableDesc))
+            try
             {
-                MessageBox.Show("请填写表描述!","提示");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(File.FileName))
-            {
-                MessageBox.Show("请上传文件!", "提示");
-                return;
-            }
-            StringBuilder sb = new StringBuilder();
-            if (File.IsField == true)
-            {
-
-                using FileStream stream = System.IO.File.OpenRead(File.FilePath);
-                DataTable DT = ExcelHelper.ExcelToTable(File.FilePath, stream, true, null, 0, 8);
-
-                for (int i = 0; i < DT.Rows.Count; i++)
+                if (string.IsNullOrEmpty(File.TableName))
                 {
-                    DataRow dr = DT.Rows[i];
+                    MessageBox.Show("请填写表名!", "提示");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(File.TableDesc))
+                {
+                    MessageBox.Show("请填写表描述!", "提示");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(File.FileName))
+                {
+                    MessageBox.Show("请上传文件!", "提示");
+                    return;
+                }
+                StringBuilder sb = new StringBuilder();
+                StringBuilder sbDesc = new StringBuilder();
+                if (File.IsField == true)
+                {
+
+                    using FileStream stream = System.IO.File.OpenRead(File.FilePath);
+                    DataTable DT = ExcelHelper.ExcelToTable(File.FilePath, stream, true, null, 0, 8);
+
+                    for (int i = 0; i < DT.Rows.Count; i++)
+                    {
+                        DataRow dr = DT.Rows[i];
+                        string fielName = dr[1].ToString();
+                        string dbType = dr[2].ToString();
+                        string size = dr[3].ToString();
+                        string isEmpty = dr[4].ToString();
+                        string isKey = dr[5].ToString();
+                        string desc = dr[6].ToString();
+                        //ALTER TABLE employee  ADD  spbh varchar(20) NOT NULL Default 0
+                        string sql = string.Empty;
+                        sql += $"ALTER TABLE {File.TableName} ADD ";
+
+                        // 如果是INT类型不需要是大小
+                        if (dbType.ToUpper().Equals("INT"))
+                        {
+                            sql += $"[{fielName}] {dbType} ";
+                        }
+                        // 如果 NVARCHAR VARCHAR 的size为0
+                        else if ((dbType.ToUpper().Equals("NVARCHAR") || dbType.ToUpper().Equals("VARCHAR")) && (size.Equals("0") || size.Trim().Equals(string.Empty)))
+                        {
+                            sql += $"[{fielName}] {dbType}(255) ";
+                        }
+                        // 时间类型
+                        else if (dbType.ToUpper().Equals("DATETIME"))
+                        {
+                            sql += $"[{fielName}] {dbType} ";
+                        }
+                        else
+                        {
+                            sql += $"[{fielName}] {dbType}({size}) ";
+                        }
+
+                        if ("否".Equals(isEmpty))
+                        {
+                            sql += $"NOT NULL ";
+                        }
+                        sb.Append(sql + ";\r\n");
+
+                        sbDesc.Append($"execute sp_addextendedproperty 'MS_Description','{desc}','user','dbo','table','{File.TableName}','column','{fielName}'; \r\n ");
+                    }
+
+                    File.Sql = sb.ToString() + sbDesc.ToString();
+
+                    return;
+                }
+
+
+                using FileStream fs = System.IO.File.OpenRead(File.FilePath);
+                DataTable dt = ExcelHelper.ExcelToTable(File.FilePath, fs, true, null, 0, 8);
+
+                sbDesc = new StringBuilder();
+                sb.Append($"CREATE TABLE {File.TableName} (\r\n");
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow dr = dt.Rows[i];
                     string fielName = dr[1].ToString();
                     string dbType = dr[2].ToString();
                     string size = dr[3].ToString();
                     string isEmpty = dr[4].ToString();
                     string isKey = dr[5].ToString();
                     string desc = dr[6].ToString();
-                    //ALTER TABLE employee  ADD  spbh varchar(20) NOT NULL Default 0
-                    string sql = string.Empty;
-                    sql += $"ALTER TABLE {File.TableName} ADD ";
-
-                    // 如果是INT类型不需要是大小
-                    if (dbType.ToUpper().Equals("INT"))
+                    string sqlItem = string.Empty;
+                    if (string.IsNullOrEmpty(size.Trim()))
                     {
-                        sql += $"[{fielName}] {dbType} ";
-                    }
-                    // 如果 NVARCHAR VARCHAR 的size为0
-                    else if ((dbType.ToUpper().Equals("NVARCHAR") || dbType.ToUpper().Equals("VARCHAR")) && (size.Equals("0") || size.Trim().Equals(string.Empty)))
-                    {
-                        sql += $"[{fielName}] {dbType}(255) ";
-                    }
-                    // 时间类型
-                    else if (dbType.ToUpper().Equals("DATETIME"))
-                    {
-                        sql += $"[{fielName}] {dbType} ";
+                        sqlItem = $"[{fielName}] {dbType} ";
                     }
                     else
                     {
-                        sql += $"[{fielName}] {dbType}({size}) ";
+                        // 如果是INT类型不需要是大小
+                        if (dbType.ToUpper().Equals("INT"))
+                        {
+                            sqlItem = $"[{fielName}] {dbType} ";
+                        }
+                        // 如果 NVARCHAR VARCHAR 的size为0
+                        else if ((dbType.ToUpper().Equals("NVARCHAR") || dbType.ToUpper().Equals("VARCHAR")) && (size.Equals("0") || size.Trim().Equals(string.Empty)))
+                        {
+                            sqlItem = $"[{fielName}] {dbType}(255) ";
+                        }
+                        // 时间类型
+                        else if (dbType.ToUpper().Equals("DATETIME"))
+                        {
+                            sqlItem = $"[{fielName}] {dbType} ";
+                        }
+                        else
+                        {
+                            sqlItem = $"[{fielName}] {dbType}({size}) ";
+                        }
+
                     }
 
+                    if ("是".Equals(isKey))
+                    {
+                        sqlItem += $"primary key ";
+                    }
                     if ("否".Equals(isEmpty))
                     {
-                        sql += $"NOT NULL ";
+                        sqlItem += $"not null ";
                     }
-                    sb.Append(sql + ";\r\n");
-                }
-
-                File.Sql = sb.ToString();
-
-                return;
-            }
-
-
-            using FileStream fs = System.IO.File.OpenRead(File.FilePath);
-            DataTable dt = ExcelHelper.ExcelToTable(File.FilePath, fs, true, null, 0, 8);
-
-            StringBuilder sbDesc = new StringBuilder();
-            sb.Append($"CREATE TABLE {File.TableName} (\r\n");
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                DataRow dr = dt.Rows[i];
-                string fielName = dr[1].ToString();
-                string dbType = dr[2].ToString();
-                string size = dr[3].ToString();
-                string isEmpty = dr[4].ToString();
-                string isKey = dr[5].ToString();
-                string desc = dr[6].ToString();
-                string sqlItem = string.Empty;
-                if (string.IsNullOrEmpty(size.Trim()))
-                {
-                    sqlItem = $"[{fielName}] {dbType} ";
-                }
-                else
-                {
-                    // 如果是INT类型不需要是大小
-                    if (dbType.ToUpper().Equals("INT"))
+                    //if(!String.IsNullOrEmpty(desc))
+                    //{
+                    //    sqlItem += $"comment '{desc}' ";
+                    //}
+                    if (i < dt.Rows.Count - 1)
                     {
-                        sqlItem = $"[{fielName}] {dbType} ";
+                        sqlItem += ",";
                     }
-                    // 如果 NVARCHAR VARCHAR 的size为0
-                    else if ((dbType.ToUpper().Equals("NVARCHAR") || dbType.ToUpper().Equals("VARCHAR")) && (size.Equals("0") || size.Trim().Equals(string.Empty)))
-                    {
-                        sqlItem = $"[{fielName}] {dbType}(255) ";
-                    }
-                    // 时间类型
-                    else if (dbType.ToUpper().Equals("DATETIME"))
-                    {
-                        sqlItem = $"[{fielName}] {dbType} ";
-                    }
-                    else
-                    {
-                        sqlItem = $"[{fielName}] {dbType}({size}) ";
-                    }
+                    sb.Append(sqlItem + "\r\n");
+                    #region 添加表字段注释
+                    sbDesc.Append($"execute sp_addextendedproperty 'MS_Description','{desc}','user','dbo','table','{File.TableName}','column','{fielName}'; \r\n ");
+                    #endregion
 
                 }
-
-                if ("是".Equals(isKey))
-                {
-                    sqlItem += $"primary key ";
-                }
-                if ("否".Equals(isEmpty))
-                {
-                    sqlItem += $"not null ";
-                }
-                //if(!String.IsNullOrEmpty(desc))
-                //{
-                //    sqlItem += $"comment '{desc}' ";
-                //}
-                if (i < dt.Rows.Count - 1)
-                {
-                    sqlItem += ",";
-                }
-                sb.Append(sqlItem + "\r\n");
-                #region 添加表字段注释
-                sbDesc.Append($"execute sp_addextendedproperty 'MS_Description','{desc}','user','dbo','table','{File.TableName}','column','{fielName}'; \r\n ");
+                sb.Append(")");
+                #region 生成表注释
+                string tableDescSQl = $"execute sp_addextendedproperty 'MS_Description','{File.TableDesc}','user','dbo','table','{File.TableName}',null,null;";
                 #endregion
+                File.Sql = sb.ToString() + "\r\n" + sbDesc.ToString() + "\r\n" + tableDescSQl;
 
             }
-            sb.Append(")");
-            #region 生成表注释
-            string tableDescSQl = $"execute sp_addextendedproperty 'MS_Description','{File.TableDesc}','user','dbo','table','{File.TableName}',null,null;";
-            #endregion
-            File.Sql = sb.ToString() + "\r\n" + sbDesc.ToString() + "\r\n" + tableDescSQl;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
+            
 
         }
     }
